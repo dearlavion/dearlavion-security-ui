@@ -1,0 +1,316 @@
+/* The studio wears the homepage's look: white, soft colour blobs, a light top bar. */
+.shell {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-bg);
+  overflow-x: clip;
+}
+
+.blobA,
+.blobB {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blobA {
+  width: 420px;
+  height: 420px;
+  background: var(--tint-marigold);
+  top: -140px;
+  right: -140px;
+}
+
+.blobB {
+  width: 280px;
+  height: 280px;
+  background: var(--tint-lavender);
+  top: 420px;
+  left: -150px;
+}
+
+.bar {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--color-line);
+  padding: 14px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+}
+
+.barWrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.picker > span {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+}
+
+.switcher {
+  background-color: var(--tint-cream);
+  color: var(--color-ink);
+  border: 1.5px solid var(--color-line);
+  border-radius: 999px;
+  padding: 7px 34px 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%233A2E2E' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  max-width: 220px;
+  min-width: 0;
+  transition: border-color 0.18s ease;
+}
+
+.switcher:hover {
+  border-color: var(--color-ink-soft);
+}
+
+.switcher:focus-visible {
+  outline: none;
+  border-color: var(--color-coral);
+  box-shadow: 0 0 0 3px rgba(227, 139, 78, 0.2);
+}
+
+/* Same role as travel-besty admin's "← Back to Storefront". */
+.homeLink {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.homeLink:hover {
+  color: var(--color-coral-deep);
+}
+
+.accountWrap {
+  position: relative;
+}
+
+.logout {
+  color: var(--color-coral-deep);
+}
+
+.menuToggle {
+  display: none;
+  border: none;
+  background: none;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.menuIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 22px;
+  height: 16px;
+}
+
+.menuIcon span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-ink);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.open span:nth-child(2) { opacity: 0; }
+.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 36px 32px 80px;
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* A focused page (a test idea): no side menu, full width. */
+.page.pageFocused {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  transition: all 0.18s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.link:hover {
+  background: rgba(253, 247, 238, 0.9);
+  color: var(--color-coral-deep);
+}
+
+/* Like the homepage nav: the current page is coral, on a soft marigold pill. */
+.active,
+.active:hover {
+  background: var(--tint-marigold);
+  color: var(--color-coral-deep);
+  font-weight: 700;
+}
+
+.icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-line);
+  margin: 8px 12px;
+}
+
+.content {
+  min-width: 0;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .bar {
+    padding: 12px 20px;
+  }
+  .switcher {
+    max-width: 150px;
+  }
+  .barWrap {
+    gap: 10px;
+  }
+  /* Room is tight: the workspace picker drops its label, the role picker keeps "Role:". */
+  .picker:first-of-type > span {
+    display: none;
+  }
+  .picker {
+    gap: 4px;
+  }
+  .accountWrap,
+  .homeLink {
+    display: none;
+  }
+  .menuToggle {
+    display: inline-flex;
+  }
+  .page {
+    grid-template-columns: 1fr;
+    padding: 24px 16px 60px;
+  }
+  .sidebar {
+    position: static;
+  }
+  .nav {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: #fff;
+    padding: 84px 20px 32px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-16px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  }
+  .navOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .link {
+    font-size: 16px;
+    padding: 15px 16px;
+  }
+  .mobileOnly {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .barWrap > :global(a):first-child {
+    font-size: 0;
+  }
+  .switcher {
+    max-width: 112px;
+    padding-right: 28px;
+    padding-left: 12px;
+    text-overflow: ellipsis;
+  }
+  .switcher {
+    max-width: 104px;
+  }
+}
+
+/* Planned pages: visible so the role's menu is complete, but not clickable yet. */
+.soonLink,
+.soonLink:hover {
+  cursor: default;
+  background: none;
+  color: var(--color-ink-soft);
+  opacity: 0.6;
+}
+
+.soon {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--tint-lavender);
+  color: #86609a;
+}
+
+
+
+
