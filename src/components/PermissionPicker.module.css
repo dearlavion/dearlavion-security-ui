@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
   text-align: left;
 }
 
@@ -36,4 +35,18 @@
 .selected {
   border-color: var(--color-coral);
   background: var(--tint-cream);
+}
+
+/* Inside a .form-field the global label/input rules would restyle these, so win on specificity. */
+.options .option {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+.options .option input {
+  width: auto;
+  padding: 0;
+  flex-shrink: 0;
+  background: none;
 }

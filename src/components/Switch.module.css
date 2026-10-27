@@ -1,0 +1,41 @@
+.switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-line);
+  cursor: pointer;
+  transition: background 0.18s ease;
+  flex-shrink: 0;
+}
+
+.switch:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(227, 139, 78, 0.3);
+}
+
+.switch:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.on {
+  background: var(--color-leaf);
+}
+
+.knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(58, 46, 46, 0.3);
+  transition: transform 0.18s ease;
+}
+
+.on .knob {
+  transform: translateX(18px);
+}

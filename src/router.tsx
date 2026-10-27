@@ -4,12 +4,17 @@ import { AppShell } from './components/AppShell';
 import { Toast } from './components/Toast';
 import { refreshSession } from './lib/authApi';
 import { useSession } from './lib/session';
-import { Approvals } from './pages/Approvals';
+import { AdminRequests } from './pages/AdminRequests';
 import { Audit } from './pages/Audit';
 import { Denied } from './pages/Denied';
+import { CreateUser } from './pages/CreateUser';
+import { CreateRole } from './pages/CreateRole';
 import { Login } from './pages/Login';
 import { ProjectDetail } from './pages/ProjectDetail';
+import { PermissionManagement } from './pages/PermissionManagement';
 import { Projects } from './pages/Projects';
+import { Roles } from './pages/Roles';
+import { Users } from './pages/Users';
 
 /** Tries to restore the session from the refresh cookie once, before rendering anything. */
 function Root() {
@@ -45,10 +50,17 @@ export const router = createBrowserRouter([
         children: [
           { path: '/projects', element: <Projects /> },
           { path: '/projects/:customer', element: <ProjectDetail /> },
-          { path: '/approvals', element: <Approvals /> },
+          { path: '/admin-requests', element: <AdminRequests /> },
+          { path: '/users', element: <Users /> },
+          { path: '/users/new', element: <CreateUser /> },
+          { path: '/roles', element: <Roles /> },
+          { path: '/roles/new', element: <CreateRole /> },
+          { path: '/permissions', element: <PermissionManagement /> },
           { path: '/audit', element: <Audit /> },
         ],
       },
+      // The page used to be called Approvals.
+      { path: '/approvals', element: <Navigate to="/admin-requests" replace /> },
       { path: '*', element: <Navigate to="/projects" replace /> },
     ],
   },

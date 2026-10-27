@@ -20,6 +20,7 @@ export function StatusBadge({ status }: { status: ApprovalStatus }) {
 /** Permission only means something for an approved admin. */
 export function PermissionBadge({ user }: { user: ManagedUser }) {
   if (user.status !== 'APPROVED') return <span className="muted">—</span>;
+  if (user.permission === 'NONE') return <span className="badge badge-pink">No access</span>;
   const p = PERMISSIONS.find((x) => x.id === user.permission);
   return <span className="badge badge-lavender">{p?.label ?? user.permission}</span>;
 }

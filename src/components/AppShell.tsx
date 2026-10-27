@@ -16,6 +16,10 @@ export function AppShell() {
   useEffect(() => setMenuOpen(false), [pathname]);
 
   const link = ({ isActive }: { isActive: boolean }) => `${styles.link} ${isActive ? styles.active : ''}`;
+  const sublink = ({ isActive }: { isActive: boolean }) => `${styles.link} ${styles.subLink} ${isActive ? styles.active : ''}`;
+  const inGroup = (base: string) => pathname === base || pathname.startsWith(`${base}/`);
+  const inUsers = inGroup('/users');
+  const inRoles = inGroup('/roles');
 
   return (
     <div className={styles.shell}>
@@ -35,10 +39,13 @@ export function AppShell() {
         <aside className={styles.sidebar}>
           <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
             <NavLink to="/projects" className={link}><span className={styles.icon}>🧭</span>Projects</NavLink>
-            <NavLink to="/approvals" className={link}>
-              <span className={styles.icon}>🔔</span>Approvals
+            <NavLink to="/admin-requests" className={link}>
+              <span className={styles.icon}>🔔</span>Admin requests
               {!!pending?.length && <span className="badge badge-marigold" style={{ marginLeft: 'auto' }}>{pending.length}</span>}
             </NavLink>
+            <NavGroup base="/users" label="Users" icon="👥" open={inUsers} link={link} sublink={sublink} />
+            <NavGroup base="/roles" label="Role" icon="🏷️" open={inRoles} link={link} sublink={sublink} />
+            <NavLink to="/permissions" className={link}><span className={styles.icon}>🔑</span>Permission management</NavLink>
             <NavLink to="/audit" className={link}><span className={styles.icon}>📜</span>Audit log</NavLink>
             <div className={styles.mobileOnly}>
               <div className={styles.divider} />
@@ -53,5 +60,32 @@ export function AppShell() {
         </main>
       </div>
     </div>
+  );
+}
+
+type LinkClass = ({ isActive }: { isActive: boolean }) => string;
+
+/** A sidebar entry that opens a sub menu (Create, Search) while you are anywhere under its path. */
+function NavGroup({ base, label, icon, open, sublink }: {
+  base: string;
+  label: string;
+  icon: string;
+  open: boolean;
+  link: LinkClass;
+  sublink: LinkClass;
+}) {
+  return (
+    <>
+      <NavLink to={base} className={({ isActive }) => `${styles.link} ${isActive ? styles.parentActive : ''}`}>
+        <span className={styles.icon}>{icon}</span>{label}
+        <span className={styles.chevron} aria-hidden="true">{open ? '▾' : '▸'}</span>
+      </NavLink>
+      {open && (
+        <div className={styles.subNav}>
+          <NavLink to={`${base}/new`} className={sublink}>Create</NavLink>
+          <NavLink to={base} end className={sublink}>Search</NavLink>
+        </div>
+      )}
+    </>
   );
 }

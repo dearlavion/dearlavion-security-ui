@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useDecide } from '../lib/queries';
 import type { ManagedUser, Permission } from '../lib/types';
-import { fullName, PERMISSIONS } from './Badges';
+import { fullName } from './Badges';
 import { Overlay } from './Overlay';
-import styles from './PermissionOverlay.module.css';
+import { PermissionPicker } from './PermissionPicker';
+import { RolePresetSelect } from './RolePresetSelect';
 
 interface Props {
   customer: string;
@@ -25,17 +26,8 @@ export function PermissionOverlay({ customer, user, onClose }: Props) {
       <p className="muted" style={{ marginBottom: 16 }}>
         {fullName(user)} · {user.email}
       </p>
-      <div className={styles.options} role="radiogroup" aria-label="Permission">
-        {PERMISSIONS.map((p) => (
-          <label key={p.id} className={`${styles.option} ${permission === p.id ? styles.selected : ''}`}>
-            <input type="radio" name="permission" value={p.id} checked={permission === p.id} onChange={() => setPermission(p.id)} />
-            <span>
-              <strong>{p.label}</strong>
-              <span className="muted">{p.hint}</span>
-            </span>
-          </label>
-        ))}
-      </div>
+      <RolePresetSelect customer={customer} onPick={setPermission} />
+      <div style={{ marginBottom: 20 }}><PermissionPicker value={permission} onChange={setPermission} /></div>
       <button type="button" className="btn btn-primary btn-block" onClick={save} disabled={decide.isPending}>
         {decide.isPending ? 'Saving…' : approving ? 'Approve' : 'Save'}
       </button>

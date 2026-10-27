@@ -1,6 +1,6 @@
 export type Role = 'SUPERADMIN' | 'ADMIN' | 'STAFF' | 'USER';
 export type ApprovalStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
-export type Permission = 'READ' | 'MODIFY' | 'BOTH';
+export type Permission = 'NONE' | 'READ' | 'MODIFY' | 'BOTH';
 
 /** The signed-in superadmin. */
 export interface User {
@@ -35,6 +35,40 @@ export interface ProjectSummary {
   admins: number;
   users: number;
   pending: number;
+}
+
+export interface ProjectUser {
+  customer: string;
+  user: ManagedUser;
+}
+
+export interface ProjectUserPage {
+  items: ProjectUser[];
+  total: number;
+  page: number;
+  size: number;
+}
+
+/** A per-project permission preset (not the account Role above). */
+export interface PermissionRole {
+  id: string;
+  name: string;
+  description: string | null;
+  permission: Permission;
+  createdBy: string;
+  createdAt: string;
+}
+
+export interface ProjectRole {
+  customer: string;
+  role: PermissionRole;
+}
+
+export interface ProjectRolePage {
+  items: ProjectRole[];
+  total: number;
+  page: number;
+  size: number;
 }
 
 export interface PendingAdmin {

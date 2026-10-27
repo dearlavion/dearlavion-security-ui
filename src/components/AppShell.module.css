@@ -314,3 +314,29 @@
 
 
 
+
+/* The Users group: its parent only turns coral; the current sub item gets the marigold pill. */
+.parentActive,
+.parentActive:hover {
+  color: var(--color-coral-deep);
+  font-weight: 700;
+}
+
+.chevron {
+  margin-left: auto;
+  font-size: 11px;
+}
+
+.subNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 4px 22px;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-line);
+}
+
+.subLink {
+  padding: 8px 14px;
+  font-size: 13.5px;
+}

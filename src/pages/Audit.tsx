@@ -1,7 +1,14 @@
 import { EmptyState } from '../components/EmptyState';
 import { useAudit } from '../lib/queries';
 
-const ACTIONS: Record<string, string> = { APPROVAL: 'Approval', ACTIVATE: 'Restored', DEACTIVATE: 'Deactivated' };
+const ACTIONS: Record<string, string> = {
+  APPROVAL: 'Approval',
+  CREATE: 'User created',
+  ACTIVATE: 'Restored',
+  DEACTIVATE: 'Deactivated',
+  ROLE_CREATE: 'Role created',
+  ROLE_DELETE: 'Role deleted',
+};
 
 export function Audit() {
   const { data, isPending, error } = useAudit();
